@@ -1,16 +1,42 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
-        {% block stylesheets %}
-        {% endblock %}
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
 
-        {% block javascripts %}
-        {% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-    </body>
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
+	<body>
+	<nav class="bg-white p-4 shadow-md">
+		<div class="container mx-auto flex items-center justify-between">
+			<!-- Logo -->
+			<div class="flex items-center">
+				<img src="{{ asset('Symfazon-trans.png') }}" alt="Logo" class="h-14 mr-2">
+			</div>
+
+			<!-- Links -->
+			<div class="flex space-x-4">
+				<a href="{{ path('app_home') }}" class="text-gray-800 hover:text-gray-600">Home</a>
+				<a href="#" class="text-gray-800 hover:text-gray-600">Products</a>
+				<a href="#" class="text-gray-800 hover:text-gray-600">Categories</a>
+				<a href="#" class="text-gray-800 hover:text-gray-600">Contact</a>
+			</div>
+
+			<!-- Login/Sign Up Button -->
+			<div>
+				<a href="#" class="text-white bg-blue-500 hover:bg-blue-600 px-4 py-2 rounded-full">Login / Sign Up</a>
+			</div>
+		</div>
+	</nav>
+		{% block body %}{% endblock %}
+	</body>
 </html>
