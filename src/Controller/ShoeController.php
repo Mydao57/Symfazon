@@ -12,6 +12,17 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class ShoeController extends AbstractController
 {
+    #[Route('/shoes', name: 'all_shoes')]
+    public function showAllShoes(EntityManagerInterface $em): Response {
+
+        $allShoes = $em->getRepository(Shoe::class)->findAll();
+
+        return $this->render(
+            'shoe/allShoes.html.twig'
+        );
+    }
+
+
     #[Route('/shoe/{id}', name: 'app_shoe')]
     public function index(int $id, EntityManagerInterface $em): Response
     {
