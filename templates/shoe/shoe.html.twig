@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-Symfazon - Vente de Chaussures
+Symfazon - Sale of Shoes
 {% endblock %}
 
 {% block body %}
     {% include 'utils/navbar.twig' %}
     <div class="container mx-auto my-8">
-        <h1 class="text-3xl font-semibold mb-4 text-red-500">Découvrez nos chaussures</h1>
+        <h1 class="text-3xl font-semibold mb-4 text-red-500">Discover our shoes</h1>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {% for shoe in shoes %}
@@ -18,7 +18,7 @@ Symfazon - Vente de Chaussures
                     </div>
 
                     <div class="mb-2">
-                        <strong>Couleurs:</strong>
+                        <strong>Colors:</strong>
                         <div class="flex space-x-2">
                             {% for color in shoe.shoeColor %}
                                 <span class="text-gray-700">{{ color.colorName }}</span>
@@ -27,7 +27,7 @@ Symfazon - Vente de Chaussures
                     </div>
 
                     <div>
-                        <strong>Tailles disponibles:</strong>
+                        <strong>Sizes available:</strong>
                         <div class="flex space-x-2">
                             {% for size in shoe.shoeSize %}
                                 <span class="inline-block bg-gray-200 text-gray-700 rounded-md p-2">{{ size.shoeSize }}</span>
