@@ -1,11 +1,32 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <div class="min-h-screen flex flex-col">
 
-    {% include 'utils/navbar.twig' %}
+        {% include 'utils/navbar.twig' %}
 
-    
+        <h1 class="font-bold text-3xl p-4 mx-auto">Shoes</h1>
 
-    {% include 'utils/footer.twig' %}
+        <div class="container mx-auto mt-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+
+
+    {% for shoe in shoes %}
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <!-- Your card content goes here -->
+            <h2 class="text-xl font-semibold">{{ shoe.shoeName }}</h2>
+            <p class="text-gray-700">{{ shoe.shoeBrand.brandName  }}</p>
+            <a href="{{ path('app_shoe', {"id": shoe.id}) }}">
+            <button class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                See more
+            </button>
+            </a>
+        </div>
+    {% endfor %}
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
 
 {% endblock %}

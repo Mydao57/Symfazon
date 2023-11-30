@@ -5,13 +5,35 @@
             <img src="{{ asset('Symfazon-trans.png') }}" class="w-56 h-14" />
         </a>
 
-        <div class="space-x-4">
-            <a href="{{ path('all_shoes') }}" class="text-gray-600 hover:text-gray-800">Shoes</a>
-            <a href="{{ path('all_clothes') }}" class="text-gray-600 hover:text-gray-800">Clothes</a>
-            <a href="{{ path('all_products') }}" class="text-gray-600 hover:text-gray-800">All products</a>
+        <div class="flex items-center space-x-4">
+            <div class="hidden md:flex space-x-4 ">
+                <a href="{{ path('all_shoes') }}" class="text-gray-600 hover:text-gray-800">Shoes</a>
+                <a href="{{ path('all_clothes') }}" class="text-gray-600 hover:text-gray-800">Clothes</a>
+                <a href="{{ path('all_products') }}" class="text-gray-600 hover:text-gray-800">All products</a>
+            </div>
+            
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-gray-600 hover:text-gray-800 focus:outline-none">
+                    Menu
+                </button>
+            </div>
+
+            <a href="#" class="hidden md:inline-block bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white px-4 py-2 rounded-md">Sign Up</a>
         </div>
-
-
-        <a href="#" class="bg-blue-500 text-white px-4 py-2 rounded-md">Sign Up</a>
     </div>
 </nav>
+
+<!-- Responsive Menu (Hidden by default) -->
+<div id="mobile-menu" class="md:hidden bg-white">
+    <a href="{{ path('all_shoes') }}" class="block py-2 px-4 text-gray-600 hover:text-gray-800">Shoes</a>
+    <a href="{{ path('all_clothes') }}" class="block py-2 px-4 text-gray-600 hover:text-gray-800">Clothes</a>
+    <a href="{{ path('all_products') }}" class="block py-2 px-4 text-gray-600 hover:text-gray-800">All products</a>
+    <a href="" class="block py-2 px-4 bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 text-white rounded-md">Sign Up</a>
+</div>
+
+<script>
+    // JavaScript to toggle the mobile menu visibility
+    document.getElementById('mobile-menu-button').addEventListener('click', function () {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+    });
+</script>

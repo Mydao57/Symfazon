@@ -18,7 +18,8 @@ class ShoeController extends AbstractController
         $allShoes = $em->getRepository(Shoe::class)->findAll();
 
         return $this->render(
-            'shoe/allShoes.html.twig'
+            'shoe/allShoes.html.twig',
+            ['shoes' => $allShoes]
         );
     }
 
