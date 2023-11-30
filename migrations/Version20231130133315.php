@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20231122195559 extends AbstractMigration
+final class Version20231130133315 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -21,6 +21,9 @@ final class Version20231122195559 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->addSql('CREATE TABLE brand (id INT AUTO_INCREMENT NOT NULL, brand_name VARCHAR(50) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE clothe (id INT AUTO_INCREMENT NOT NULL, image_id INT DEFAULT NULL, clothe_brand_id INT NOT NULL, clothe_name VARCHAR(50) NOT NULL, UNIQUE INDEX UNIQ_C32115BA3DA5256D (image_id), INDEX IDX_C32115BA7D92BE16 (clothe_brand_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE clothe_color (clothe_id INT NOT NULL, color_id INT NOT NULL, INDEX IDX_74586CD6D554487F (clothe_id), INDEX IDX_74586CD67ADA1FB5 (color_id), PRIMARY KEY(clothe_id, color_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE clothe_clothe_size (clothe_id INT NOT NULL, clothe_size_id INT NOT NULL, INDEX IDX_701D77A2D554487F (clothe_id), INDEX IDX_701D77A22D5074C4 (clothe_size_id), PRIMARY KEY(clothe_id, clothe_size_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE clothe_size (id INT AUTO_INCREMENT NOT NULL, clothe_size VARCHAR(20) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE color (id INT AUTO_INCREMENT NOT NULL, color_name VARCHAR(50) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE image (id INT AUTO_INCREMENT NOT NULL, alt VARCHAR(50) NOT NULL, url VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
@@ -29,6 +32,12 @@ final class Version20231122195559 extends AbstractMigration
         $this->addSql('CREATE TABLE shoe_shoe_size (shoe_id INT NOT NULL, shoe_size_id INT NOT NULL, INDEX IDX_A33FB73B2AD16370 (shoe_id), INDEX IDX_A33FB73BACE9EF33 (shoe_size_id), PRIMARY KEY(shoe_id, shoe_size_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE shoe_size (id INT AUTO_INCREMENT NOT NULL, shoe_size VARCHAR(20) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE messenger_messages (id BIGINT AUTO_INCREMENT NOT NULL, body LONGTEXT NOT NULL, headers LONGTEXT NOT NULL, queue_name VARCHAR(190) NOT NULL, created_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', available_at DATETIME NOT NULL COMMENT \'(DC2Type:datetime_immutable)\', delivered_at DATETIME DEFAULT NULL COMMENT \'(DC2Type:datetime_immutable)\', INDEX IDX_75EA56E0FB7336F0 (queue_name), INDEX IDX_75EA56E0E3BD61CE (available_at), INDEX IDX_75EA56E016BA31DB (delivered_at), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE clothe ADD CONSTRAINT FK_C32115BA3DA5256D FOREIGN KEY (image_id) REFERENCES image (id)');
+        $this->addSql('ALTER TABLE clothe ADD CONSTRAINT FK_C32115BA7D92BE16 FOREIGN KEY (clothe_brand_id) REFERENCES brand (id)');
+        $this->addSql('ALTER TABLE clothe_color ADD CONSTRAINT FK_74586CD6D554487F FOREIGN KEY (clothe_id) REFERENCES clothe (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE clothe_color ADD CONSTRAINT FK_74586CD67ADA1FB5 FOREIGN KEY (color_id) REFERENCES color (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE clothe_clothe_size ADD CONSTRAINT FK_701D77A2D554487F FOREIGN KEY (clothe_id) REFERENCES clothe (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE clothe_clothe_size ADD CONSTRAINT FK_701D77A22D5074C4 FOREIGN KEY (clothe_size_id) REFERENCES clothe_size (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE shoe ADD CONSTRAINT FK_C1B7A8493DA5256D FOREIGN KEY (image_id) REFERENCES image (id)');
         $this->addSql('ALTER TABLE shoe ADD CONSTRAINT FK_C1B7A8495ECA6032 FOREIGN KEY (shoe_brand_id) REFERENCES brand (id)');
         $this->addSql('ALTER TABLE shoe_color ADD CONSTRAINT FK_94A6A1D22AD16370 FOREIGN KEY (shoe_id) REFERENCES shoe (id) ON DELETE CASCADE');
@@ -40,6 +49,12 @@ final class Version20231122195559 extends AbstractMigration
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
+        $this->addSql('ALTER TABLE clothe DROP FOREIGN KEY FK_C32115BA3DA5256D');
+        $this->addSql('ALTER TABLE clothe DROP FOREIGN KEY FK_C32115BA7D92BE16');
+        $this->addSql('ALTER TABLE clothe_color DROP FOREIGN KEY FK_74586CD6D554487F');
+        $this->addSql('ALTER TABLE clothe_color DROP FOREIGN KEY FK_74586CD67ADA1FB5');
+        $this->addSql('ALTER TABLE clothe_clothe_size DROP FOREIGN KEY FK_701D77A2D554487F');
+        $this->addSql('ALTER TABLE clothe_clothe_size DROP FOREIGN KEY FK_701D77A22D5074C4');
         $this->addSql('ALTER TABLE shoe DROP FOREIGN KEY FK_C1B7A8493DA5256D');
         $this->addSql('ALTER TABLE shoe DROP FOREIGN KEY FK_C1B7A8495ECA6032');
         $this->addSql('ALTER TABLE shoe_color DROP FOREIGN KEY FK_94A6A1D22AD16370');
@@ -47,6 +62,9 @@ final class Version20231122195559 extends AbstractMigration
         $this->addSql('ALTER TABLE shoe_shoe_size DROP FOREIGN KEY FK_A33FB73B2AD16370');
         $this->addSql('ALTER TABLE shoe_shoe_size DROP FOREIGN KEY FK_A33FB73BACE9EF33');
         $this->addSql('DROP TABLE brand');
+        $this->addSql('DROP TABLE clothe');
+        $this->addSql('DROP TABLE clothe_color');
+        $this->addSql('DROP TABLE clothe_clothe_size');
         $this->addSql('DROP TABLE clothe_size');
         $this->addSql('DROP TABLE color');
         $this->addSql('DROP TABLE image');

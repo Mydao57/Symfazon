@@ -1,10 +1,32 @@
 {% extends 'base.html.twig' %}
 
-{% block title 'Symfazon | Clothes '%}
-
 {% block body %}
-    {% include 'utils/navbar.twig' %}
+    <div class="min-h-screen flex flex-col">
 
-    {% include 'utils/footer.twig' %}
+        {% include 'utils/navbar.twig' %}
+
+            <h1 class="font-bold text-3xl p-4 mx-auto">Clothes</h1>
+
+        <div class="container mx-auto mt-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+
+
+                {% for clothe in clothes %}
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <!-- Your card content goes here -->
+                        <h2 class="text-xl font-semibold">{{ clothe.clotheName }}</h2>
+                        <p class="text-gray-700">{{ clothe.clotheBrand.brandName  }}</p>
+                        <a href="{{ path('app_clothe', {"id": clothe.id}) }}">
+                            <button class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                See more
+                            </button>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
 
 {% endblock %}

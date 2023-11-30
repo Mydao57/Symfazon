@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+Symfazon - Vente de Chaussures
+{% endblock %}
+
+{% block body %}
+    {% include 'utils/navbar.twig' %}
+    <div class="container mx-auto my-8">
+        <h1 class="text-3xl font-semibold mb-4 text-red-500">Découvrez nos vetements</h1>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for clothe in clothes %}
+                <div class="bg-white p-4 rounded-lg shadow-md">
+                    <div class="mb-4">
+                        <span class="text-gray-500">{{ clothe.clotheBrand.brandName }}</span>
+                        <h2 class="text-xl font-semibold">{{ clothe.clotheName }}</h2>
+                    </div>
+
+                    <div class="mb-2">
+                        <strong>Couleurs:</strong>
+                        <div class="flex space-x-2">
+                            {% for color in clothe.clotheColor %}
+                                <span class="text-gray-700">{{ color.colorName }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div>
+                        <strong>Tailles disponibles:</strong>
+                        <div class="flex space-x-2">
+                            {% for size in clothe.clotheSize %}
+                                <span class="inline-block bg-gray-200 text-gray-700 rounded-md p-2">{{ size.clotheSize }}</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -21,9 +21,13 @@ class Color
     #[ORM\ManyToMany(targetEntity: Shoe::class, mappedBy: 'shoeColor')]
     private Collection $shoes;
 
+    #[ORM\ManyToMany(targetEntity: Clothe::class, mappedBy: 'clotheColor')]
+    private Collection $clothes;
+
     public function __construct()
     {
         $this->shoes = new ArrayCollection();
+        $this->clothes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -65,6 +69,33 @@ class Color
     {
         if ($this->shoes->removeElement($shoe)) {
             $shoe->removeShoeColor($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Clothe>
+     */
+    public function getClothes(): Collection
+    {
+        return $this->clothes;
+    }
+
+    public function addClothes(Clothe $clothes): static
+    {
+        if (!$this->clothes->contains($clothes)) {
+            $this->clothes->add($clothes);
+            $clothes->addClotheColor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeClothes(Clothe $clothes): static
+    {
+        if ($this->clothes->removeElement($clothes)) {
+            $clothes->removeClotheColor($this);
         }
 
         return $this;
