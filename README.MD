@@ -10,7 +10,6 @@ Symfazon is a shoe and clothing sales website programmed with Symfony.
 ## Table of Contents
 
 - [Installation](#installation)
-- [Usage](#usage)
 - [Configuration](#configuration)
 - [Contributing](#contributing)
 - [License](#license)
